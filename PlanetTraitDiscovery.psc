@@ -28,13 +28,9 @@ Function ScanPlanetComplete(planet akPlanet) global
 	vChance.SetValue(100.0)
 	If matchingKeywords.Length > 0
 		SQ_Parent.OnPlayerScanPlanet(planetToCheck)
-		Utility.Wait(0.1)
 		SQ_Parent.OnPlayerScanPlanet(planetToCheck)
-		Utility.Wait(0.1)
 		SQ_Parent.OnPlayerScanPlanet(planetToCheck)
 		Debug.Trace(planetToCheck + " learned new traits: " + matchingKeywords, 0)
-		;SQ_Parent.CheckCompletePlanetSurvey(planetToCheck, true) 
 	EndIf
-	Utility.Wait(0.5)
 	vChance.SetValue(originalChance)
 EndFunction
