@@ -1,5 +1,7 @@
 ScriptName UnarmedScaling extends Actor
 
+GlobalVariable Property FistDamageMult Auto
+
 Event OnInit()
 	ScaleUnarmedDamage()
 EndEvent
@@ -8,9 +10,14 @@ Event OnPlayerLoadGame()
 	ScaleUnarmedDamage()
 EndEvent
 
-Function ScaleUnarmedDamage() global
+Event OnLocationChange(Location akOldLoc, Location akNewLoc)
+	ScaleUnarmedDamage()
+EndEvent
+
+Function ScaleUnarmedDamage() Auto
+	float damageMult = FistDamageMult.GetValue()
 	Actor player = Game.GetPlayer()
-	float newval = Game.GetPlayerLevel() * 1.5
+	float newval = Game.GetPlayerLevel() * damageMult
 	ActorValue UnarmedDamageAV = Game.GetForm(0x0002DF) as ActorValue
 	player.SetValue(UnarmedDamageAV, newval)
 EndFunction
