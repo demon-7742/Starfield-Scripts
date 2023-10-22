@@ -30,6 +30,8 @@ Function ScanPlanetComplete(planet akPlanet) global
 		SQ_Parent.OnPlayerScanPlanet(planetToCheck)
 		SQ_Parent.OnPlayerScanPlanet(planetToCheck)
 		SQ_Parent.OnPlayerScanPlanet(planetToCheck)
+		SQ_Parent.OnPlayerScanPlanet(planetToCheck)
+		SQ_Parent.OnPlayerScanPlanet(planetToCheck)
 		Debug.Trace(planetToCheck + " learned new traits: " + matchingKeywords, 0)
 	EndIf
 	vChance.SetValue(originalChance)
