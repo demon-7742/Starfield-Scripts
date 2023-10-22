@@ -1,4 +1,12 @@
-ScriptName ShipUnlocker
+ScriptName ShipUnlocker extends Actor
+
+Function OnInit()
+	unlockShips()
+EndFunction
+
+Event OnHomeShipSet(spaceshipreference akShip, spaceshipreference akPrevious)
+	unlockShips()
+EndEvent
 
 Function unlockShips() global
 	Keyword locked = Game.GetForm(0x3413F2) as Keyword
