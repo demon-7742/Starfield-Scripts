@@ -1,10 +1,10 @@
-ScriptName PlanetTraitDiscovery extends Actor
+ScriptName FPTDScript extends ReferenceAlias
 
 spaceshipreference Property playerShip Auto
 
 Event OnInit()
 	playerShip = Game.GetPlayerHomeSpaceShip()
-	Debug.Trace("Scan Script Loaded", 0)
+	Debug.Trace("FPTD Script Loaded", 0)
 	RegisterForRemoteEvent(playerShip, "OnShipScan")
 	planet curPlanet = Game.GetPlayer().GetCurrentPlanet()
 EndEvent
