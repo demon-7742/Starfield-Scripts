@@ -1,10 +1,14 @@
-ScriptName ShipUnlocker extends Actor
+ScriptName ShipUnlockerScript extends ReferenceAlias
+
+Actor Property PlayerRef Auto
 
 Function OnInit()
 	unlockShips()
+	RegisterForRemoteEvent(PlayerRef, "OnHomeShipSet")
 EndFunction
 
-Event OnHomeShipSet(spaceshipreference akShip, spaceshipreference akPrevious)
+Event Actor.OnHomeShipSet(Actor akSender, spaceshipreference akShip, spaceshipreference akPrevious)
+	Debug.Trace("New home ship set: " + akship, 0)
 	unlockShips()
 EndEvent
 
