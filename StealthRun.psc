@@ -1,30 +1,35 @@
-ScriptName StealthRun extends Actor
+ScriptName StealthRunScript extends ReferenceAlias
 
 GlobalVariable Property StealthSpeed Auto
+Actor Property PlayerRef Auto
 
-Event OnEnterSneaking()
-  speedUp()
+Event OnInit()
+	RegisterForRemoteEvent(PlayerRef, "OnEnterSneaking")
+EndEvent
+
+Event Actor.OnEnterSneaking(Actor aksender)
+	Debug.Trace("Stealth run 3", 0)
+	speedUp()
 EndEvent
 
 Function speedUp()
-	Actor player = Game.GetPlayer()
 	float newSpeed = StealthSpeed.GetValue()
 	float newAnimSpeed = ((newSpeed - 100) * 0.3) + 100
 	ActorValue speedMult = Game.GetForm(0x0002DA) as ActorValue
 	ActorValue animSpeed = Game.GetForm(0x0002D2) as ActorValue
-	player.SetValue(speedMult, newSpeed)
-	While player.IsSneaking()
-		If player.GetAnimationVariableBool("IsFirstPerson")
-			If player.GetValue(animSpeed) != 100.0
-				player.SetValue(animSpeed, 100.0)
+	PlayerRef.SetValue(speedMult, newSpeed)
+	While PlayerRef.IsSneaking()
+		If PlayerRef.GetAnimationVariableBool("IsFirstPerson")
+			If PlayerRef.GetValue(animSpeed) != 100.0
+				PlayerRef.SetValue(animSpeed, 100.0)
 			EndIf
 		Else
-			If player.GetValue(animSpeed) != newAnimSpeed
-				player.SetValue(animSpeed, newAnimSpeed)
+			If PlayerRef.GetValue(animSpeed) != newAnimSpeed
+				PlayerRef.SetValue(animSpeed, newAnimSpeed)
 			EndIf
 		EndIf
 ;		Utility.Wait(0.1)
 	EndWhile
-	player.SetValue(animSpeed, 100.0)
-	player.SetValue(speedMult, 100.0)
+	PlayerRef.SetValue(animSpeed, 100.0)
+	PlayerRef.SetValue(speedMult, 100.0)
 EndFunction
