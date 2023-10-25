@@ -1,12 +1,19 @@
-ScriptName FPTDScript extends ReferenceAlias
+ScriptName FPTDScript extends Quest
 
-spaceshipreference Property playerShip Auto
+Actor Property PlayerRef Auto
 
 Event OnInit()
-	playerShip = Game.GetPlayerHomeSpaceShip()
 	Debug.Trace("FPTD Script Loaded", 0)
+	spaceshipreference playerShip = Game.GetPlayerHomeSpaceShip()
 	RegisterForRemoteEvent(playerShip, "OnShipScan")
+	RegisterForRemoteEvent(PlayerRef, "OnHomeShipSet")
 	planet curPlanet = Game.GetPlayer().GetCurrentPlanet()
+EndEvent
+
+Event Actor.OnHomeShipSet(Actor akSender, spaceshipreference akShip, spaceshipreference akPrevious)
+	Debug.Trace("FPTD new home ship set: " + akship, 0)
+	UnregisterForRemoteEvent(akPrevious, "OnShipScan")
+	RegisterForRemoteEvent(akShip, "OnShipScan")
 EndEvent
 
 Event spaceshipreference.OnShipScan(spaceshipreference akSender, Location aPlanet, ObjectReference[] aMarkersArray)
